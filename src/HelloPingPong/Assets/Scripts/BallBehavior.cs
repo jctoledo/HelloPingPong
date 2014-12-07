@@ -4,7 +4,7 @@ using System.Collections;
 public class BallBehavior : MonoBehaviour {
 
 	public Vector3 initialVelocity;
-	
+	public float bounceRate =1.0f;
 		// Use this for initialization
 	void Start () {
 		rigidbody.velocity = initialVelocity;
@@ -14,12 +14,13 @@ public class BallBehavior : MonoBehaviour {
 	/* the ball eventualy stops. I tried to fix it, but this get's trigged too often.
 	*/
 
-	/*
-	void OnCollisionExit (Collision other) {
 
-		Debug.Log ("initial vel: " + rigidbody.velocity + " rel vel: " + other.relativeVelocity);
-		rigidbody.velocity = other.relativeVelocity * 1.0f;
-		Debug.Log ("final vel: " + rigidbody.velocity);
+	void OnCollisionEnter (Collision other) {
+		Debug.Log ("Original velocity " + rigidbody.velocity);
+		if (other.collider.gameObject.tag == "Wall") {
+			rigidbody.velocity = rigidbody.velocity.normalized * (initialVelocity.magnitude*bounceRate);
+			Debug.Log ("New velocity " + rigidbody.velocity);
+		}
 	}
-	*/
+
 }
