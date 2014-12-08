@@ -15,6 +15,9 @@ public class BallBehavior : MonoBehaviour {
 		// When colliding with walls, no energy is lost on the bounce.
 		if (other.collider.gameObject.tag == "Wall") {
 			rigidbody.velocity = rigidbody.velocity.normalized * (initialVelocity.magnitude*bounceRate);
+
+			// Adding some randomness to the bounce
+			rigidbody.AddForce(new Vector3(0.0f, 0.0f, Random.value*initialVelocity.magnitude));
 		}
 
 	}
